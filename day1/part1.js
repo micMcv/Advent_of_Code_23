@@ -1,10 +1,8 @@
-fetch("https://adventofcode.com/2023/day/1/input").
+const fs = require('fs');
 
-    
-    then(res => res.text()).
-    then(data => data =  data.trim().split("\n")).
-    then(data => {
-
+fs.readFile('./inputData.txt',"utf-8" , (err, data) => {
+ 
+        data =  data.trim().split("\r\n")
         let sum = 0;
         data.forEach(line => {
             const regex = /[A-Z]/ig;
