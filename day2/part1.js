@@ -3,8 +3,8 @@ const fs = require('fs');
 function breaksTheLimit(color, amount){
     
     const limits = {"red":12, "green": 13, "blue":14};
-    const truth = amount > limits[color] 
-    return amount > limits[color] ;
+    const truth = amount > limits[color];
+    return amount > limits[color];
 
 }
 
