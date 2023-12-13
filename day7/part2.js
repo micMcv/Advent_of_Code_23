@@ -79,7 +79,7 @@ function checkForStregnth(entry){
 
     
     if (fourOfaKind(hand)){
-        if ((amountOfJokers(originalOrder) == 1)){
+        if (amountOfJokers(originalOrder)){
             return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
         }
         return [hand, cardPowers["FourOfAKind"] ,bid, originalOrder]     
@@ -87,16 +87,22 @@ function checkForStregnth(entry){
 
 
     if (fullHouse(hand)){
-        if ((amountOfJokers(originalOrder) == 2)){
+        if (amountOfJokers(originalOrder)){
             return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
         }
         return [hand, cardPowers["FullHouse"] ,bid, originalOrder]     
 }
 
 
-
-
     if (threeOfaKind(hand)){
+
+        if ((amountOfJokers(originalOrder) == 3)){
+            return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
+        }
+
+
+
+
         return [hand, cardPowers["ThreeOfAKind"] ,bid, originalOrder]     
     }
 
