@@ -93,24 +93,33 @@ function checkForStregnth(entry){
         return [hand, cardPowers["FullHouse"] ,bid, originalOrder]     
 }
 
-
     if (threeOfaKind(hand)){
 
         if (amountOfJokers(originalOrder)){ 
             return [hand, cardPowers["FourOfAKind"],bid, originalOrder]
         }
-
-
-
-
         return [hand, cardPowers["ThreeOfAKind"] ,bid, originalOrder]     
     }
 
     if (twoPair(hand)){
+        if (amountOfJokers(originalOrder) === 1){
+            return [hand, cardPowers["FullHouse"],bid, originalOrder]
+        }
+        if (amountOfJokers(originalOrder) === 2){
+            return [hand, cardPowers["FourOfAKind"],bid, originalOrder]
+        }     
         return [hand, cardPowers["TwoPair"] ,bid, originalOrder]     
     }
+    
     if (onePair(hand)){
+        if (amountOfJokers(originalOrder)){
+            return [hand, cardPowers["ThreeOfAKind"],bid, originalOrder]
+        }
         return [hand, cardPowers["OnePair"] ,bid, originalOrder]     
+    }
+
+    if (amountOfJokers(originalOrder)){
+        return [hand, cardPowers["OnePair"],bid, originalOrder]
     }
 
     return [hand, 0 ,bid, originalOrder]
@@ -133,13 +142,8 @@ then(data => {
     })
 
     data.forEach((item , index)=> {
-
         result += Number(item[2]) * (index + 1)
     })
-    
-    data.forEach(item => {
-        console.log(item)
-    })
-    
+       
     console.log(result)   
 })
