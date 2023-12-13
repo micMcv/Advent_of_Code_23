@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 
-const fiveOfAKind = (hand) => hand.every( (value) => value === hand[0])
+const fiveOfAKind = (hand) => hand.every((value) => value === hand[0])
 
 const fourOfaKind = (hand) => {
     hand = hand.join("")
@@ -13,7 +13,8 @@ const fourOfaKind = (hand) => {
 
 const fullHouse = (hand) => {
     const setOfCards = new Set(hand)
-    return setOfCards.size === 2}
+    return setOfCards.size === 2
+}
 
 const threeOfaKind = (hand) => {
 
@@ -31,12 +32,12 @@ const threeOfaKind = (hand) => {
 const twoPair = (hand) => {
     const setOfCards = new Set(hand)
     return setOfCards.size === 3
-    
+
 }
 const onePair = (hand) => {
     const setOfCards = new Set(hand)
     return setOfCards.size === 4
-    
+
 }
 
 const cardPowers = {
@@ -61,61 +62,61 @@ const cardPowers = {
     "2": 2
 }
 
-function checkForStregnth(entry){
-    
+function checkForStregnth(entry) {
+
     let [hand, bid] = entry.split(" ")
     originalOrder = hand
-    hand = hand.split("").sort((a,b) => a.charCodeAt(0) - b.charCodeAt(0))
+    hand = hand.split("").sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
 
-    if (fiveOfAKind(hand)){
-        return [hand, cardPowers["FiveOfAKind"] ,bid,originalOrder]     
-    }
-
-    if (fourOfaKind(hand)){
-        return [hand, cardPowers["FourOfAKind"] ,bid, originalOrder]     
-    }
-    if (fullHouse(hand)){
-        return [hand, cardPowers["FullHouse"] ,bid, originalOrder]     
+    if (fiveOfAKind(hand)) {
+        return [hand, cardPowers["FiveOfAKind"], bid, originalOrder]
     }
 
-    if (threeOfaKind(hand)){
-        return [hand, cardPowers["ThreeOfAKind"] ,bid, originalOrder]     
+    if (fourOfaKind(hand)) {
+        return [hand, cardPowers["FourOfAKind"], bid, originalOrder]
+    }
+    if (fullHouse(hand)) {
+        return [hand, cardPowers["FullHouse"], bid, originalOrder]
     }
 
-    if (twoPair(hand)){
-        return [hand, cardPowers["TwoPair"] ,bid, originalOrder]     
-    }
-    if (onePair(hand)){
-        return [hand, cardPowers["OnePair"] ,bid, originalOrder]     
+    if (threeOfaKind(hand)) {
+        return [hand, cardPowers["ThreeOfAKind"], bid, originalOrder]
     }
 
-    return [hand, 0 ,bid, originalOrder]
+    if (twoPair(hand)) {
+        return [hand, cardPowers["TwoPair"], bid, originalOrder]
+    }
+    if (onePair(hand)) {
+        return [hand, cardPowers["OnePair"], bid, originalOrder]
+    }
+
+    return [hand, 0, bid, originalOrder]
 }
 
-fs.readFile('./inputData.txt',"utf-8" ).
-then(data => {
-    result = 0 
-    data =  data.trim().split("\r\n").map(item => checkForStregnth(item)).sort((a,b) => {
-        
-        if ( a[1] == b[1]){
-            for (let i = 0; i < a[3].length; i++) {
-                if (a[3][i] !== b[3][i]){
+fs.readFile('./inputData.txt', "utf-8").
+    then(data => {
+        result = 0
+        data = data.trim().split("\r\n").map(item => checkForStregnth(item)).sort((a, b) => {
 
-                    return cardPowers[a[3][i]] - cardPowers[b[3][i]]
-                }               
+            if (a[1] == b[1]) {
+                for (let i = 0; i < a[3].length; i++) {
+                    if (a[3][i] !== b[3][i]) {
+
+                        return cardPowers[a[3][i]] - cardPowers[b[3][i]]
+                    }
+                }
             }
-        }
-       return a[1] - b[1]   
-    })
+            return a[1] - b[1]
+        })
 
-    data.forEach((item , index)=> {
+        data.forEach((item, index) => {
 
-        result += Number(item[2]) * (index + 1)
+            result += Number(item[2]) * (index + 1)
+        })
+
+        data.forEach(item => {
+            console.log(item)
+        })
+
+        console.log(result)
     })
-    
-    data.forEach(item => {
-        console.log(item)
-    })
-    
-    console.log(result)   
-})
