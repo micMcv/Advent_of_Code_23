@@ -96,8 +96,8 @@ function checkForStregnth(entry){
 
     if (threeOfaKind(hand)){
 
-        if ((amountOfJokers(originalOrder) == 3)){
-            return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
+        if (amountOfJokers(originalOrder)){ 
+            return [hand, cardPowers["FourOfAKind"],bid, originalOrder]
         }
 
 
