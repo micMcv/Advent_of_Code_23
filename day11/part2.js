@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const rotate90 = require('2d-array-rotation').rotate90;
-const taskFactor = 999999
+const taskFactor = 999_999
 
 function expandTheUniverse(data){
     let yFactor = {}
@@ -28,7 +28,7 @@ function expandTheUniverse(data){
             xFactor[i] = counter
         }                         
     }
-
+    console.log(yFactor)
     return [yFactor,xFactor]
 }
 
