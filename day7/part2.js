@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 
-const jokers = (hand) => {
+const amountOfJokers = (hand) => {
     const result = hand.match(/[J]/gi)
     if (result === null) return 0
     return result.length
@@ -77,15 +77,24 @@ function checkForStregnth(entry){
         return [hand, cardPowers["FiveOfAKind"] ,bid,originalOrder]     
     }
 
-    if ((originalOrder.match(/[J]/gi).length === 1) && fourOfaKind(hand)){
-        return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
-    }
+    
     if (fourOfaKind(hand)){
+        if ((amountOfJokers(originalOrder) == 1)){
+            return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
+        }
         return [hand, cardPowers["FourOfAKind"] ,bid, originalOrder]     
     }
+
+
     if (fullHouse(hand)){
+        if ((amountOfJokers(originalOrder) == 2)){
+            return [hand, cardPowers["FiveOfAKind"],bid, originalOrder]
+        }
         return [hand, cardPowers["FullHouse"] ,bid, originalOrder]     
-    }
+}
+
+
+
 
     if (threeOfaKind(hand)){
         return [hand, cardPowers["ThreeOfAKind"] ,bid, originalOrder]     
@@ -123,7 +132,7 @@ then(data => {
     })
     
     data.forEach(item => {
-        if (item[0].includes("J")) console.log(item)
+        console.log(item)
     })
     
     console.log(result)   
