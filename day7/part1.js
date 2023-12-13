@@ -68,34 +68,27 @@ function checkForStregnth(entry){
     hand = hand.split("").sort((a,b) => a.charCodeAt(0) - b.charCodeAt(0))
 
     if (fiveOfAKind(hand)){
-        //console.log([hand, cardPowers["FiveOfAKind"] , cardPowers[firstCard]])
         return [hand, cardPowers["FiveOfAKind"] ,bid,originalOrder]     
     }
 
     if (fourOfaKind(hand)){
-       // console.log([hand, cardPowers["FourOfAKind"] , cardPowers[firstCard]])
         return [hand, cardPowers["FourOfAKind"] ,bid, originalOrder]     
     }
     if (fullHouse(hand)){
-      //  console.log([hand, cardPowers["FullHouse"] , cardPowers[firstCard]])
         return [hand, cardPowers["FullHouse"] ,bid, originalOrder]     
     }
 
     if (threeOfaKind(hand)){
-       // console.log([hand, cardPowers["ThreeOfAKind"] , cardPowers[firstCard]])
         return [hand, cardPowers["ThreeOfAKind"] ,bid, originalOrder]     
     }
 
     if (twoPair(hand)){
-       // console.log([hand, cardPowers["TwoPair"] , cardPowers[firstCard]])
         return [hand, cardPowers["TwoPair"] ,bid, originalOrder]     
     }
     if (onePair(hand)){
-       // console.log([hand, cardPowers["OnePair"] , cardPowers[firstCard]])
         return [hand, cardPowers["OnePair"] ,bid, originalOrder]     
     }
 
-   // console.log([hand, powerOfHighestCard , cardPowers[firstCard]])
     return [hand, 0 ,bid, originalOrder]
 }
 
@@ -105,14 +98,11 @@ then(data => {
     data =  data.trim().split("\r\n").map(item => checkForStregnth(item)).sort((a,b) => {
         
         if ( a[1] == b[1]){
-           // console.log("same")
             for (let i = 0; i < a[3].length; i++) {
                 if (a[3][i] !== b[3][i]){
 
                     return cardPowers[a[3][i]] - cardPowers[b[3][i]]
-
-                }
-                
+                }               
             }
         }
        return a[1] - b[1]   
