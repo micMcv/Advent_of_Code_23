@@ -1,5 +1,3 @@
-const { dir } = require('console')
-
 const fs = require('fs').promises
 
 function checkDirection(direction, y,x , data) {
@@ -89,7 +87,7 @@ function checkDirection(direction, y,x , data) {
 
 fs.readFile('./inputData.txt', "utf-8").
     then(data => {
-        let startingPoints = ["D 0 3"]
+        let startingPoints = ["D 0 0"]
         let seen = new Set()
         data = data.trim().split("\r\n")
         let dataCopy = [...data].map(row => row.split(""))
