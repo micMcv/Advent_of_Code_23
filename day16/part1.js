@@ -68,7 +68,6 @@ function checkDirection(direction, y,x , data) {
         case "D": {
             nextY++
             if (nextY >= data.length) {
-                // console.log(nextY)
                 return []
             }
             if (data[nextY][nextX] === "-") {
@@ -88,34 +87,26 @@ function checkDirection(direction, y,x , data) {
     }
 }
 
-
-
 fs.readFile('./inputData.txt', "utf-8").
     then(data => {
         let startingPoints = ["D 0 3"]
         let seen = new Set()
         data = data.trim().split("\r\n")
         let dataCopy = [...data].map(row => row.split(""))
-        // dataCopy.forEach(row => console.log(row))
 
         while (startingPoints.length > 0) {
 
             currentPoint = startingPoints.shift().split(" ")
             const [direction, y , x] = [...currentPoint]
-
             const nextPoints = checkDirection(direction, y, x , data)
             
-
-
             for (let point of nextPoints) {
                 point = point.join(" ")
                 if (seen.has(point)) {
                     continue
                 }
                 startingPoints.push(point)
-          }
-            
-            // console.log(checkDirection(direction, y, x , data))
+          }         
             seen.add(currentPoint.join(" "))
             dataCopy[y][x] = "#"
 
@@ -128,8 +119,5 @@ fs.readFile('./inputData.txt', "utf-8").
                 }
             })
         })
-
-        dataCopy.forEach(row => console.log(row.join("")))
         console.log(result)
-
     })
